@@ -1,0 +1,108 @@
+[gd_scene load_steps=6 format=3 uid="uid://kyald5ccgqly"]
+
+[ext_resource type="FontFile" uid="uid://8u0d0bpoe1wf" path="res://fonts/Xolonium-Regular.ttf" id="1_pa0ay"]
+[ext_resource type="Script" path="res://scripts/pause_hud.gd" id="1_uklf0"]
+[ext_resource type="Texture2D" uid="uid://bjqmpppgtdy4y" path="res://art/extras/MusicButton.png" id="3_ksofn"]
+[ext_resource type="Texture2D" uid="uid://h4jcdhwiin6u" path="res://art/extras/MusicButtonPressed.png" id="4_n3yku"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ye7gt"]
+font = ExtResource("1_pa0ay")
+font_size = 64
+
+[node name="PauseHUD" type="CanvasLayer"]
+script = ExtResource("1_uklf0")
+
+[node name="Pause" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.5
+offset_top = -40.5
+offset_right = 104.5
+offset_bottom = 40.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Pause"
+label_settings = SubResource("LabelSettings_ye7gt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimeLabel" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.5
+offset_top = -40.5
+offset_right = 104.5
+offset_bottom = 40.5
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_ye7gt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -221.0
+offset_right = 100.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ResumeButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_pa0ay")
+theme_override_font_sizes/font_size = 45
+text = "Resume"
+flat = true
+
+[node name="RestartButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_pa0ay")
+theme_override_font_sizes/font_size = 45
+text = "Restart"
+flat = true
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_pa0ay")
+theme_override_font_sizes/font_size = 45
+text = "Quit
+"
+flat = true
+
+[node name="MusicButton" type="TextureButton" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -87.0
+offset_top = -87.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+toggle_mode = true
+action_mode = 0
+texture_normal = ExtResource("3_ksofn")
+texture_pressed = ExtResource("4_n3yku")
+
+[node name="ResumeTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="pressed" from="VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="MusicButton" to="." method="_on_texture_button_pressed"]
+[connection signal="timeout" from="ResumeTimer" to="." method="_on_resume_timer_timeout"]
